@@ -1,6 +1,8 @@
 #include "csvbatchfileforqt.h"
 #include <QLineEdit>
 #include <QTextStream>
+#include <QFileDialog>
+#include <QDebug>
 
 #define MTPAAddress 0
 #define FluxAddress 1
@@ -179,4 +181,24 @@ void CSVBatchFileForQt::mathout()
         aStream << 	mymath(newCSV[i][2]) << ",   " <<	mymath(newCSV[i][3]) << ",   ";
     }
     aFile.close();
+}
+
+void CSVBatchFileForQt::GetMTPAAddress()
+{
+    QString s = QFileDialog::getOpenFileName(
+                this, "选择MTPA文件",
+                "/",
+                "MTPA表格文件 (*.csv *.CSV);; 所有文件 (*.*); ");
+    ui->LE_MTPAAddress->setText(s);
+}
+
+void CSVBatchFileForQt::GetWeakMagneticAddress()
+{
+    QString s = QFileDialog::getOpenFileName(this, "选择弱磁文件", "/", "弱磁表格文件 (*.csv *.CSV);; 所有文件 (*.*);");
+    ui->LE_PutInText  ->setText(s);
+}
+void CSVBatchFileForQt::GetPutOutAddressAddress()
+{
+    QString s = QFileDialog::getOpenFileName(this, "选择TXT文件", "/", "输出路径 (*.txt);; 所有文件 (*.*); ");
+    ui->LE_PutOutText ->setText(s);
 }

@@ -20,7 +20,8 @@ SOURCES += \
     PutIn.cpp \
     main.cpp \
     csvbatchfileforqt.cpp \
-    match.cpp
+    match.cpp \
+    setText.cpp
 
 HEADERS += \
     csvbatchfileforqt.h

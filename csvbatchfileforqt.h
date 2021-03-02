@@ -10,6 +10,9 @@
 #include <list>
 #include <QMap>
 using namespace std;
+#define MTPAADDRESS   0
+#define WEAKMAGNETIC  1
+#define PUTOUTADDRESS 2
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CSVBatchFileForQt; }
@@ -30,6 +33,7 @@ public:     //外部接口
     vector<vector<double>> OpenTheCSV(QString FileAddress);
 //四舍五入算法 参数表（原像，浮动量，精度）
     int round_double(double number, int excursion, int precision);
+    void setText();
 protected:
     int mymath(double a);                       //除以900
     int momentmatch(double a);                  //除以500
@@ -37,6 +41,9 @@ protected:
     int Thetamatch(double Iq_ref, int Is);      //角度计算
 public slots:
     void mathout();
+    void GetMTPAAddress();
+    void GetWeakMagneticAddress();
+    void GetPutOutAddressAddress();
 
 private:
     Ui::CSVBatchFileForQt *ui;
