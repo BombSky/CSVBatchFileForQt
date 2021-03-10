@@ -6,97 +6,135 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>665</width>
-    <height>287</height>
+    <width>1330</width>
+    <height>511</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>CSVBatchFileForQt</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,20,1">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     <widget class="QLabel" name="LB_HPText">
+      <property name="text">
+       <string>合普动力</string>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
       </property>
-     </spacer>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="10,10,10,10,10,18,10">
+     <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="24,1,24,1,24">
       <item>
-       <widget class="QLabel" name="LB_HPText">
-        <property name="text">
-         <string>合普动力</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QLineEdit" name="LE_MTPAAddress">
-          <property name="placeholderText">
-           <string>MTPA标定文件路径</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLineEdit" name="LE_MTPAAddress">
+            <property name="placeholderText">
+             <string>MTPA标定文件路径</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Btn_MTPAAddress">
+            <property name="text">
+             <string>MTPA地址</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="Btn_MTPAAddress">
-          <property name="text">
-           <string>MTPA地址</string>
-          </property>
-         </widget>
+         <widget class="QTableView" name="TBV_MTPA"/>
         </item>
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QLineEdit" name="LE_PutInText">
-          <property name="placeholderText">
-           <string>弱磁标定文件路径</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLineEdit" name="LE_PutInText">
+            <property name="placeholderText">
+             <string>弱磁标定文件路径</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Btn_PutInText">
+            <property name="text">
+             <string>弱磁地址</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="Btn_PutInText">
-          <property name="text">
-           <string>弱磁地址</string>
-          </property>
-         </widget>
+         <widget class="QTableView" name="TBV_WM"/>
         </item>
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QLineEdit" name="LE_PutOutText">
-          <property name="placeholderText">
-           <string>输出文件路径</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLineEdit" name="LE_PutOutText">
+            <property name="placeholderText">
+             <string>输出文件路径</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Btn_PutOutTxt">
+            <property name="text">
+             <string>输出地址</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="Btn_PutOutTxt">
-          <property name="text">
-           <string>输出地址</string>
-          </property>
-         </widget>
+         <widget class="QTableView" name="TBV_PutOut"/>
         </item>
        </layout>
       </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -116,20 +154,17 @@
        </layout>
       </item>
       <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1,8,1">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox"/>
+        </item>
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
@@ -153,19 +188,6 @@
        </layout>
       </item>
      </layout>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>

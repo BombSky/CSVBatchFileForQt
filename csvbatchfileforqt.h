@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include "ui_csvbatchfileforqt.h"
 #include <QString>
-#include <QFile>
 #include <iostream>
 #include <vector>
 #include <list>
 #include <QMap>
+#include <QStandardItemModel>
 using namespace std;
 #define MTPAADDRESS   0
 #define WEAKMAGNETIC  1
@@ -39,13 +39,19 @@ protected:
     int momentmatch(double a);                  //除以500
     int Ismatch(double Id_ref, double Iq_ref);  //is电流的计算
     int Thetamatch(double Iq_ref, int Is);      //角度计算
-public slots:
+    void PutInMTPAWidgetView();
+    void PutInWMWidgetView();
+    void setComboBox();
     void mathout();
+public slots:
+    void judge();
     void GetMTPAAddress();
     void GetWeakMagneticAddress();
     void GetPutOutAddressAddress();
-
+    void keyPressEvent(QKeyEvent *);
 private:
     Ui::CSVBatchFileForQt *ui;
+    QTableView * table_view;
+    QStandardItemModel * item_model;
 };
 #endif // CSVBATCHFILEFORQT_H

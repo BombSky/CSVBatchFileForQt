@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     OpenCSV.cpp \
     PutIn.cpp \
+    PutOutTheWidgetView.cpp \
     main.cpp \
     csvbatchfileforqt.cpp \
     match.cpp \

@@ -15,7 +15,7 @@ int CSVBatchFileForQt::Ismatch(double Id_ref, double Iq_ref)
 
 int CSVBatchFileForQt::mymath(double a)
 {
-    return a = (a * 32768) / 900;
+    return a = (a * 32768) / (ui->comboBox->currentText().toInt());
 }
 int CSVBatchFileForQt::momentmatch(double a)
 {

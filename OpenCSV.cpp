@@ -2,7 +2,6 @@
 #include <QLineEdit>
 #include <QTextStream>
 #include <QFileDialog>
-#include <QDebug>
 
 #define MTPAAddress 0
 #define FluxAddress 1
@@ -21,39 +20,19 @@ vector<vector<double>> CSVBatchFileForQt::OpenTheCSV(QString FileAddress)
         QTextStream* stream_text = new QTextStream(openFluxWeakeningFile);
         while (!stream_text->atEnd())			openFluxWeakeningLines->push_back(stream_text->readLine());
         delete(stream_text);
-//        if (FileAddress == "弱磁地址")
-//        {
-            for (int i = 1; i < openFluxWeakeningLines->size(); i++)
-            {
-                QString line = openFluxWeakeningLines->at(i);
-                QStringList split = line.split(",");/*列数据*/
-                hang.emplace_back(abs(split.at(0). toDouble()));	//转速
-                hang.emplace_back(abs(split.at(1). toDouble()));	//力矩
-                hang.emplace_back(abs(split.at(2). toDouble()));	//Id_ref
-                hang.emplace_back(abs(split.at(3). toDouble()));	//Iq_ref
-                hang.emplace_back(round_double(Ismatch(hang[2], hang[3]), 5, 10));	//计算得出的Is电流
-                hang.emplace_back(Thetamatch(hang[3], hang[4]));	//计算得出的夹角
-                csv.emplace_back(hang);
-                hang.clear();
-            }
-//        }
-//        else
-//        {
-//            for (int i = 1; i < openFluxWeakeningLines->size(); i++)
-//            {
-//                QString line = openFluxWeakeningLines->at(i);
-//                QStringList split = line.split(",");/*列数据*/
-//                hang.emplace_back(abs(split.at(1).toDouble()));	//转速
-//                hang.emplace_back(abs(split.at(6).toInt   ()));	//力矩
-//                hang.emplace_back(abs(split.at(4).toDouble()));	//Id_ref
-//                hang.emplace_back(abs(split.at(5).toDouble()));	//Iq_ref
-//                hang.emplace_back(abs(split.at(3).toInt   ()));	//Is电流
-//                int a = abs(split.at(9).toDouble());
-//                hang.emplace_back(a);	//夹角
-//                csv.emplace_back(hang);
-//                hang.clear();
-//            }
-//        }
+        for (int i = 1; i < openFluxWeakeningLines->size(); i++)
+        {
+            QString line = openFluxWeakeningLines->at(i);
+            QStringList split = line.split(",");/*列数据*/
+            hang.emplace_back(abs(split.at(0). toDouble()));	//转速
+            hang.emplace_back(abs(split.at(1). toDouble()));	//力矩
+            hang.emplace_back(abs(split.at(2). toDouble()));	//Id_ref
+            hang.emplace_back(abs(split.at(3). toDouble()));	//Iq_ref
+            hang.emplace_back(round_double(Ismatch(hang[2], hang[3]), 5, 10));	//计算得出的Is电流
+            hang.emplace_back(Thetamatch(hang[3], hang[4]));	//计算得出的夹角
+            csv.emplace_back(hang);
+            hang.clear();
+        }
         openFluxWeakeningFile->close();
     }
     delete(openFluxWeakeningFile);
@@ -129,7 +108,7 @@ void CSVBatchFileForQt::mathout()
         }
     }
 
-    for (int i = MTPACsv.size(); i >= 1; i--)
+    for (unsigned int i = MTPACsv.size(); i >= 1; i--)
         merge.emplace(merge.begin(), MTPACsv[i - 1]);
 
     vector<vector<double>> newCSV;
@@ -179,7 +158,22 @@ void CSVBatchFileForQt::mathout()
         if (i == 0)			aStream << "\r\n" << "//" << "mtpa" << "\r\n";
         else if (newCSV[i][1] == 0)			aStream << "\r\n" << "//" << round_double(newCSV[i][0], 50, 100) << "rpm" << "\r\n";
         aStream << 	mymath(newCSV[i][2]) << ",   " <<	mymath(newCSV[i][3]) << ",   ";
+    }    
+    QStandardItemModel* model = new QStandardItemModel(this);
+    model->setColumnCount(4);
+    model->setHeaderData(0, Qt::Horizontal, "转速");
+    model->setHeaderData(1, Qt::Horizontal, "扭矩");
+    model->setHeaderData(2, Qt::Horizontal, "Id");
+    model->setHeaderData(3, Qt::Horizontal, "Iq");
+
+    for (unsigned int i = 0; i < newCSV.size(); i++)
+    {
+        model->setItem(i, 0, new QStandardItem(QString::number(newCSV[i][0], 'd' , 2)));
+        model->setItem(i, 1, new QStandardItem(QString::number(newCSV[i][1], 'd' , 2)));
+        model->setItem(i, 2, new QStandardItem(QString::number(newCSV[i][2], 'd' , 2)));
+        model->setItem(i, 3, new QStandardItem(QString::number(newCSV[i][3], 'd' , 2)));
     }
+    ui->TBV_PutOut->setModel(model);
     aFile.close();
 }
 
@@ -190,12 +184,14 @@ void CSVBatchFileForQt::GetMTPAAddress()
                 "/",
                 "MTPA表格文件 (*.csv *.CSV);; 所有文件 (*.*); ");
     ui->LE_MTPAAddress->setText(s);
+    PutInMTPAWidgetView();
 }
 
 void CSVBatchFileForQt::GetWeakMagneticAddress()
 {
     QString s = QFileDialog::getOpenFileName(this, "选择弱磁文件", "/", "弱磁表格文件 (*.csv *.CSV);; 所有文件 (*.*);");
     ui->LE_PutInText  ->setText(s);
+    PutInWMWidgetView();
 }
 void CSVBatchFileForQt::GetPutOutAddressAddress()
 {

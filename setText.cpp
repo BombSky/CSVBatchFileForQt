@@ -1,8 +1,8 @@
 #include "csvbatchfileforqt.h"
+#include <QTableView>
 
 void CSVBatchFileForQt::setText()
 {
-//    setFixedSize(700,300);
     QFont* font = new QFont();
     font->setPointSize(26);
     font->setFamily("微软雅黑");
@@ -21,4 +21,11 @@ void CSVBatchFileForQt::setText()
     ui->LE_PutOutText->setFont(*otherFont);
     ui->LE_MTPAAddress->setFont(*otherFont);
     delete (otherFont);
+}
+
+void CSVBatchFileForQt::setComboBox()
+{
+    QStringList *strList = new QStringList();
+    *strList << "900" << "1000";
+    ui->comboBox->addItems(*strList);
 }
