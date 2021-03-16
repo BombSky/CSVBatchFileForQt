@@ -50,7 +50,6 @@ void CSVBatchFileForQt::mathout()
     vector<vector<double>> MTPACsv = OpenTheCSV("角度地址");
     vector<vector<double>> csv = OpenTheCSV("弱磁地址");
     vector<vector<double>> merge;
-    vector<double> linshi;
 
     unsigned int p_csv = 0;
     while ( p_csv < csv.size())
@@ -113,6 +112,7 @@ void CSVBatchFileForQt::mathout()
         merge.emplace(merge.begin(), MTPACsv[i - 1]);
 
     vector<vector<double>> newCSV;
+    vector<double> linshi;
 //尾部添加空行
     linshi.emplace_back(merge[merge.size() - 2][0]);
     linshi.insert(linshi.end(), 3, 0);
