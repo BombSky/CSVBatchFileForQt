@@ -24,11 +24,11 @@ vector<vector<double>> CSVBatchFileForQt::OpenTheCSV(QString FileAddress)
         {
             QString line = openFluxWeakeningLines->at(i);
             QStringList split = line.split(",");/*列数据*/
-            hang.emplace_back(abs(split.at(0). toDouble()));	//转速
-            hang.emplace_back(abs(split.at(1). toDouble()));	//力矩
-            hang.emplace_back(abs(split.at(2). toDouble()));	//Id_ref
-            hang.emplace_back(abs(split.at(3). toDouble()));	//Iq_ref
-            hang.emplace_back(round_double(Ismatch(hang[2], hang[3]), 5, 10));	//计算得出的Is电流
+            hang.emplace_back(round_double(split.at(0).toDouble()       , 50, 100));	//转速    round_double(split.at(0). toDouble(), 50, 100)
+            hang.emplace_back(abs(split.at(1).toDouble()));	//力矩
+            hang.emplace_back(abs(split.at(2).toDouble()));	//Id_ref
+            hang.emplace_back(abs(split.at(3).toDouble()));	//Iq_ref
+            hang.emplace_back(round_double(Ismatch(hang[2], hang[3])    , 5 , 10 ));	//计算得出的Is电流
             hang.emplace_back(Thetamatch(hang[3], hang[4]));	//计算得出的夹角
             csv.emplace_back(hang);
             hang.clear();
@@ -50,6 +50,7 @@ void CSVBatchFileForQt::mathout()
     vector<vector<double>> MTPACsv = OpenTheCSV("角度地址");
     vector<vector<double>> csv = OpenTheCSV("弱磁地址");
     vector<vector<double>> merge;
+    vector<double> linshi;
 
     unsigned int p_csv = 0;
     while ( p_csv < csv.size())
@@ -67,11 +68,12 @@ void CSVBatchFileForQt::mathout()
             {
                 merge.emplace_back(csv[p_csv]);
                 p_csv++;
-                while (csv[p_csv][1] != 0)
+                while (p_csv < csv.size()&&csv[p_csv][0] == csv[p_csv - 1][0])
                 {
                     merge.emplace_back(csv[p_csv]);
                     p_csv++;
                 }
+                p_MTPA = MTPACsv.size();
             }
             else if (MTPACsv[p_MTPA][4] == csv[p_csv][4])	//相同电流时MTPA调速比较占优势的时候
             {
@@ -99,7 +101,6 @@ void CSVBatchFileForQt::mathout()
             else if (MTPACsv[p_MTPA][4] == csv[p_csv + 1][4] && MTPACsv[p_MTPA + 1][4] != csv[p_csv + 1][4])			p_csv++;
             else if (MTPACsv[p_MTPA][4] < csv[p_csv][4]/* && MTPACsv[p_MTPA][5] > csv[p_csv][5]*/)		//当弱磁电流的最小电流大于MTPA时
             {
-
                 merge.emplace_back(MTPACsv[p_MTPA]);
                 p_MTPA++;
             }
@@ -112,7 +113,6 @@ void CSVBatchFileForQt::mathout()
         merge.emplace(merge.begin(), MTPACsv[i - 1]);
 
     vector<vector<double>> newCSV;
-    vector<double> linshi;
 //尾部添加空行
     linshi.emplace_back(merge[merge.size() - 2][0]);
     linshi.insert(linshi.end(), 3, 0);
@@ -157,7 +157,7 @@ void CSVBatchFileForQt::mathout()
     {
         if (i == 0)			aStream << "\r\n" << "//" << "mtpa" << "\r\n";
         else if (newCSV[i][1] == 0)			aStream << "\r\n" << "//" << round_double(newCSV[i][0], 50, 100) << "rpm" << "\r\n";
-        aStream << 	mymath(newCSV[i][2]) << ",   " <<	mymath(newCSV[i][3]) << ",   ";
+        aStream << 	mymath(newCSV[i][2]) << ",\t" <<	mymath(newCSV[i][3]) << ",\t";
     }    
     QStandardItemModel* model = new QStandardItemModel(this);
     model->setColumnCount(4);

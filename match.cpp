@@ -15,12 +15,13 @@ int CSVBatchFileForQt::Ismatch(double Id_ref, double Iq_ref)
 
 int CSVBatchFileForQt::mymath(double a)
 {
-    return a = (a * 32768) / (ui->comboBox->currentText().toInt());
+//    return a = (a * 32768) / (ui->comboBox->currentText().toInt());
+    return a = a / (ui->comboBox->currentText().toInt()) * 32768;
 }
-int CSVBatchFileForQt::momentmatch(double a)
-{
-    return a = a / 500 * 32768;
-}
+//int CSVBatchFileForQt::momentmatch(double a)
+//{
+//    return a = a / 500 * 32768;
+//}
 
 int CSVBatchFileForQt::round_double(double number, int excursion, int precision)
 {

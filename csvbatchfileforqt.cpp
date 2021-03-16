@@ -8,10 +8,10 @@ CSVBatchFileForQt::CSVBatchFileForQt(QWidget *parent)
     ui->setupUi(this);
     setText();
     setComboBox();
-    connect(ui->Btn_PutIn      , SIGNAL(clicked()), this, SLOT(judge                  ));
-    connect(ui->Btn_MTPAAddress, SIGNAL(clicked()), this, SLOT(GetMTPAAddress         ));
-    connect(ui->Btn_PutInText  , SIGNAL(clicked()), this, SLOT(GetWeakMagneticAddress ));
-    connect(ui->Btn_PutOutTxt  , SIGNAL(clicked()), this, SLOT(GetPutOutAddressAddress));
+    connect(ui->Btn_PutIn      , SIGNAL(clicked()), this, SLOT(judge                  ()));
+    connect(ui->Btn_MTPAAddress, SIGNAL(clicked()), this, SLOT(GetMTPAAddress         ()));
+    connect(ui->Btn_PutInText  , SIGNAL(clicked()), this, SLOT(GetWeakMagneticAddress ()));
+    connect(ui->Btn_PutOutTxt  , SIGNAL(clicked()), this, SLOT(GetPutOutAddressAddress()));
 }
 
 void CSVBatchFileForQt::keyPressEvent(QKeyEvent *e)
